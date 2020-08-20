@@ -1,0 +1,25 @@
+{
+  "name": "munives_api",
+  "version": "1.0.0",
+  "description": "Sistema de munives (Lado servidor) Nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon run index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evalladares-t/munives_api.git"
+  },
+  "author": "Valladares Tavera, Edward Joseph",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evalladares-t/munives_api/issues"
+  },
+  "homepage": "https://github.com/evalladares-t/munives_api#readme",
+  "dependencies": {
+    "awilix": "^4.2.6",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
+}
