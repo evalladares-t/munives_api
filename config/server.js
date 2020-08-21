@@ -1,17 +1,20 @@
 const express = require('express');
-const cors = require('cors');
+const routes = require('../routes')
+const config = require('./environments')
 
 class Server{
-    constructor({config,router}) {
+
+    constructor(config,routes) {
         this._config = config;
+        this._routes = routes;
         this._express = express();
-        this._express.use(router);        
-        this._express.use(cors());
+        this._express.use(require('../routes'));        
+        //this._express.use(cors());
     }
 
     start(){
         return new Promise((resolve, reject) => {
-            const http = this._express.listen(this._config.PORT, () =>{
+            const http = this._express.listen(config.PORT, () =>{
                 const {port} = http.address();
                 console.log('Aplication running on port : ' + port);
                 resolve();

@@ -1,7 +1,9 @@
-const container = require('./container');
+//const container = require('./container');
 
-const application = container.resolve("app");
-const db = container.resolve("db");
+const app = require('./config/server');
+const db = require('./dal/models/');
+
+const application = new app();
 
 application
     .start()
