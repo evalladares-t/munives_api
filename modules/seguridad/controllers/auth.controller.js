@@ -1,6 +1,8 @@
-//const {MenuDTO} = require('../dtos');
+const {UserDTO} = require('../dtos');
 const jwt = require('jsonwebtoken');
 const mapper = require('automapper-js');
+const db = require('../../../dal/models');
+const { OK, UNAUTHORIZED } = require('http-status-codes');
 
 class AuthController{
 
@@ -16,67 +18,30 @@ class AuthController{
 
     async login (req, res) {
         const { name_user, pass } = req.body;
-        const result = await this._userService.login(name_user,pass);
-        if(result.entity!=null){  
-            if(!result.validate){
-                res.json({
+        let result = await db["tb_user"].findOne({where:{name_user}});
+        if(result!=null){
+            const usuario = mapper(UserDTO,result.dataValues);
+            if(usuario.pass!=pass){
+                res.status(UNAUTHORIZED).json({
                     'success': false,
                     'message': 'Contraseña incorrecta',
                 })
             }
             else{
-                var token = jwt.sign( result.entity.iduser, process.env.JWT_SECRET);
-                const user= await this._userService.show(result.entity.iduser);
-                //const menu = await this._menuService.index();
-                const menu = await this._menuService.index(0, 20);
-                //console.log(menu)
-                let rowsmenu = menu.rows;
-                //const count = result.count;
-                rowsmenu = rowsmenu.map(rowsmenu=> mapper(this._menuDTO,rowsmenu));
-                var nolimpio = [];
-                var limpio = [];
-                var padre =[];
-                
-                rowsmenu.forEach(element => {
-                    if(element.owner!=null){
-                        nolimpio.push(element)
-                    }
-                    else{
-                        limpio.push(element);
-                    }
-                });
-                
-                for(var i=0;i<limpio.length;i++){
-                    padre[i] = limpio[i];
-                    padre[i].children=[]
-                    var xx=0;
-                    for(var j=0; j<nolimpio.length;j++){
-                        if(limpio[i].idmenu===nolimpio[j].owner){
-                            console.log(xx)
-                            padre[i].children[xx]=nolimpio[j];
-                            xx++;
-                        }
-                    }
-                }
-
-                const permission = await this._permissionService.showdep(result.entity.idprofile);
-                delete user.pass;
+                var token = jwt.sign( usuario.iduser, process.env.JWT_SECRET);
                 const emit = {"token":token}
-                await this._userService.update(result.entity.iduser,emit);
-                res.json({
+                await db["tb_user"].update(emit,{ where: { iduser:usuario.iduser }});
+                res.status(OK).json({
                     'success': true,
                     'message': 'Usuario correcto',
-                    'user':user,
-                    'token':token,
-                    'menu':padre,
-                    'permission':permission
-                    
-                    
+                    usuario,
+                    token
                 })
             }
+            
         }
         else{
-            res.json({
+            res.status(UNAUTHORIZED).json({
                 'success': false,
                 'message': 'Usuario no encontrado',
             }) 

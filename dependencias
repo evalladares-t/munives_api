@@ -1,0 +1,7 @@
+
+
+
+
+sequelize model:create --name tb_resgdis --attributes name:string,descripcion:string,recurso:string,ano:string
+
+sequelize model:create --name tb_resoga --attributes number:integer,name:string,descripcion:string,recurso:string,ano:string

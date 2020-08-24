@@ -5,6 +5,7 @@ const compression = require('compression');
 const router = Router();
 const apiRoute = Router();
 const SeguridadRoutes = require('./modules/seguridad/routes');
+const WebRoutes = require('./modules/web/routes');
 apiRoute.use(cors()).use(bodyParser.json()).use(compression());
 
     apiRoute.all('*', function(req, res, next) {
@@ -17,6 +18,7 @@ apiRoute.use(cors()).use(bodyParser.json()).use(compression());
 
     //    apiRoute.use('/seguridad',/* AuthMiddleware.authMiddleware, */SeguridadRoutes);
     apiRoute.use('/seguridad', SeguridadRoutes);
+    apiRoute.use('/web', WebRoutes);
     apiRoute.use('/*', (req, res) => {
         res.json({ 'message': 'Recurso no encotrado' })
     });

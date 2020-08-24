@@ -12,14 +12,14 @@ module.exports = (sequelize, DataTypes) => {
   };
   tb_user.init({
     iduser: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement:true,
-      comment:'IDENTIFICADOR UNICO'
+      type          : DataTypes.INTEGER,
+      primaryKey    : true,
+      autoIncrement :true,
+      comment       :'IDENTIFICADOR UNICO'
     },
     name:{ 
-      type: DataTypes.STRING(50),
-      comment:'NOMBRE DEL USUARIO'
+      type      : DataTypes.STRING(50),
+      comment   :'NOMBRE DEL USUARIO'
     },
     last_name:{
       type: DataTypes.STRING(50),
@@ -62,6 +62,7 @@ module.exports = (sequelize, DataTypes) => {
 
     comment: 'TABLA MAESTRO DE LOS USUARIOS DEL SISTEMA',
     sequelize,
+    freezeTableName: true,
     modelName: 'tb_user',
   });
 

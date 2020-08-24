@@ -8,8 +8,8 @@ class Server{
         this._config = config;
         this._routes = routes;
         this._express = express();
-        this._express.use(require('../routes'));        
-        //this._express.use(cors());
+        this._express.use(require('../routes'));
+        
     }
 
     start(){

@@ -1,13 +1,15 @@
   
 const {Router} = require('express');
-const {AuthController, UserController} = require('./controllers');
+const {AuthController} = require('./controllers');
+const {AuthMiddleware} = require('./middlewares')
 
 const authController = new AuthController();
-const userController = new UserController();
+const authMiddleware = new AuthMiddleware();
 const router = Router();
 
-    router.get('/', authController.saludo.bind(authController));
-    router.get('/:iduser', userController.showdep.bind(userController));
+    
+    router.post('/login', authController.login.bind(authController));
+    router.get('/saludo',authMiddleware.validate ,authController.saludo.bind(authController));
     
     router.use('/*', (req,res)=>{
         res.json({'message':'Recurso no encotrado'})
