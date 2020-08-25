@@ -3,18 +3,21 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class tb_resoga extends Model {
+  class tb_doc_mun extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      tb_doc_mun.belongsTo(models.tb_tipo_doc_mun,{
+        foreignKey: 'idtipodocmun',
+        as:'tb_tipo_doc_mun'
+      });
     }
   };
-  tb_resoga.init({
-    idresoga: {
+  tb_doc_mun.init({
+    idocmun: {
       type          : DataTypes.INTEGER,
       primaryKey    : true,
       autoIncrement :true,
@@ -40,12 +43,16 @@ module.exports = (sequelize, DataTypes) => {
     ano: {
       type    : DataTypes.STRING,
       comment : "AÑO PERTENECIENTE AL RECURSO"
+    },
+    idtipodocmun: {
+      type    : DataTypes.INTEGER,
+      comment : "IDENTIFICADOR DEL TIPO DE DOCUMENTO"
     }
   }, {
-    freezeTableName: true,
-    comment: 'TABLA MAESTRO DE LAS RESOGA',
+    comment: 'TABLA MAESTRO DE LOS DOCUMENTOS MUNICIPALES',
     sequelize,
-    modelName: 'tb_resoga',
+    freezeTableName: true,
+    modelName: 'tb_doc_mun',
   });
-  return tb_resoga;
+  return tb_doc_mun;
 };

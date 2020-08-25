@@ -18,7 +18,7 @@ class AuthController{
 
     async login (req, res) {
         const { name_user, pass } = req.body;
-        let result = await db["tb_user"].findOne({where:{name_user}});
+        let result = await db["tb_usuario"].findOne({where:{name_user}});
         if(result!=null){
             const usuario = mapper(UserDTO,result.dataValues);
             if(usuario.pass!=pass){
@@ -28,9 +28,9 @@ class AuthController{
                 })
             }
             else{
-                var token = jwt.sign( usuario.iduser, process.env.JWT_SECRET);
+                var token = jwt.sign( usuario.iduser, process.env.JWT_SECRET,{expiresIn:"4h"});
                 const emit = {"token":token}
-                await db["tb_user"].update(emit,{ where: { iduser:usuario.iduser }});
+                await db["tb_usuario"].update(emit,{ where: { iduser:usuario.iduser }});
                 res.status(OK).json({
                     'success': true,
                     'message': 'Usuario correcto',

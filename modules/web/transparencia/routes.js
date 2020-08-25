@@ -1,39 +1,35 @@
   
-const {Router} = require('express');
+const {Router} = require('express')
 const {AuthMiddleware} = require('../../seguridad/middlewares')
-const {ResgdisController,ResogaController} = require('./controllers');
+const {DocmunController,TipodocmunController} = require('./controllers');
 
 const authMiddleware = new AuthMiddleware();
-const resgdisController = new ResgdisController();
-const resogaController = new ResogaController();
-const router = Router();
-const router_resgdis = Router();
-const router_resoga = Router();
 
-  //Rutas para Resgdis
-    router_resgdis.post('/', resgdisController.store.bind(resgdisController));
-    router_resgdis.post('/ingresar_varios', resgdisController.store_various.bind(resgdisController));
-    router_resgdis.get('/', resgdisController.index.bind(resgdisController));
-    router_resgdis.patch('/', resgdisController.update.bind(resgdisController));
-    router_resgdis.post('/show', resgdisController.show.bind(resgdisController));
-    
-    router_resgdis.use('/*', (req,res)=>{
-        res.json({'message':'Recurso no encotrado'})
+const docmunController = new DocmunController();
+const tipodocmunController = new TipodocmunController();
+
+const router = Router();
+
+const router_docmun = Router();
+const router_tipodocmun = Router();
+
+  //Rutas Tipo Documento Municipal
+  router_tipodocmun.post('/',tipodocmunController.store.bind(tipodocmunController))
+
+  //Rutas Documento Municipal
+  router_docmun.post('/', docmunController.store.bind(docmunController));
+  router_docmun.post('/ingresar_varios', docmunController.store_various.bind(docmunController));
+  router_docmun.get('/', docmunController.index.bind(docmunController));
+  router_docmun.get('/paginado', docmunController.paginado.bind(docmunController));
+  router_docmun.get('/listaxano', docmunController.listaxano.bind(docmunController));
+  router_docmun.patch('/', docmunController.update.bind(docmunController));
+  router_docmun.get('/show', docmunController.show.bind(docmunController));
+      
+  router_docmun.use('/*', (req,res)=>{
+          res.json({'message':'Recurso no encotrado'})
     });
 
-  //Rutas para Resoga
-    router_resoga.post('/', resogaController.store.bind(resogaController));
-    router_resoga.post('/ingresar_varios', resogaController.store_various.bind(resogaController));
-    router_resoga.get('/', resogaController.index.bind(resogaController));
-    router_resoga.patch('/', resogaController.update.bind(resogaController));
-    router_resoga.post('/show', resogaController.show.bind(resogaController));
-        
-    router_resoga.use('/*', (req,res)=>{
-            res.json({'message':'Recurso no encotrado'})
-      });
-
-    router.use('/resgdis',/*authMiddleware.validate ,*/router_resgdis);
-    router.use('/resoga',/*authMiddleware.validate ,*/router_resoga);
-
+    router.use('/docmun',/*authMiddleware.validate ,*/router_docmun);
+    router.use('/tipodocmun',/*authMiddleware.validate ,*/router_tipodocmun);
 
 module.exports = router;

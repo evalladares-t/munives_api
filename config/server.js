@@ -1,6 +1,6 @@
 const express = require('express');
-const routes = require('../routes')
-const config = require('./environments')
+const routes = require('../routes');
+const config = require('./environments');
 
 class Server{
 
@@ -9,7 +9,7 @@ class Server{
         this._routes = routes;
         this._express = express();
         this._express.use(require('../routes'));
-        
+
     }
 
     start(){

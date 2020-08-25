@@ -4,14 +4,14 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class tb_user extends Model {
+  class tb_usuario extends Model {
     
     static associate(models) {
 
     }
   };
-  tb_user.init({
-    iduser: {
+  tb_usuario.init({
+    idusuario: {
       type          : DataTypes.INTEGER,
       primaryKey    : true,
       autoIncrement :true,
@@ -59,12 +59,11 @@ module.exports = (sequelize, DataTypes) => {
       comment:'IDENTIFICADOR DE PROFILE'
     },
   }, {
-
     comment: 'TABLA MAESTRO DE LOS USUARIOS DEL SISTEMA',
     sequelize,
     freezeTableName: true,
-    modelName: 'tb_user',
+    modelName: 'tb_usuario',
   });
 
-  return tb_user;
+  return tb_usuario;
 };

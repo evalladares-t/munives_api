@@ -1,6 +1,5 @@
 
 module.exports = {
-    ResgdisController : require('./resgdis.controller'),
-    ResogaController : require('./resoga.controller'),
-
+    DocmunController : require('./docmun.controller'),
+    TipodocmunController : require('./tipodocmun.controller')
 };

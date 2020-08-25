@@ -2,6 +2,63 @@
 
 
 
-sequelize model:create --name tb_resgdis --attributes name:string,descripcion:string,recurso:string,ano:string
+sequelize model:create --name tb_doc --attributes name:string,descripcion:string,recurso:string,ano:string
 
 sequelize model:create --name tb_resoga --attributes number:integer,name:string,descripcion:string,recurso:string,ano:string
+
+sequelize model:create --name tb_doc_mun --attributes number:integer,name:string,descripcion:string,recurso:string,ano:string,idtipodocmun:integer
+
+
+
+
+const {ResgdisController,ResogaController,DocmunController} = require('./controllers');
+
+const resgdisController = new ResgdisController();
+const resogaController = new ResogaController();
+
+
+
+const router_resgdis = Router();
+const router_resoga = Router();
+
+  //Rutas para Resgdis
+    router_resgdis.post('/', resgdisController.store.bind(resgdisController));
+    router_resgdis.post('/ingresar_varios', resgdisController.store_various.bind(resgdisController));
+    router_resgdis.get('/', resgdisController.index.bind(resgdisController));
+    router_resgdis.get('/paginado', resgdisController.paginado.bind(resgdisController));
+    router_resgdis.get('/listaxano', resgdisController.listaxano.bind(resgdisController));
+    router_resgdis.patch('/', resgdisController.update.bind(resgdisController));
+    router_resgdis.get('/show', resgdisController.show.bind(resgdisController));
+    
+    router_resgdis.use('/*', (req,res)=>{
+        res.json({'message':'Recurso no encotrado'})
+    });
+
+  //Rutas para Resoga
+    router_resoga.post('/', resogaController.store.bind(resogaController));
+    router_resoga.post('/ingresar_varios', resogaController.store_various.bind(resogaController));
+    router_resoga.get('/', resogaController.index.bind(resogaController));
+    router_resgdis.get('/paginado', resogaController.paginado.bind(resogaController));
+    router_resgdis.get('/listaxano', resogaController.listaxano.bind(resogaController));
+    router_resoga.patch('/', resogaController.update.bind(resogaController));
+    router_resoga.get('/show', resogaController.show.bind(resogaController));
+        
+    router_resoga.use('/*', (req,res)=>{
+            res.json({'message':'Recurso no encotrado'})
+      });
+
+  //Rutas para Docmun
+    router_docmun.post('/', docmunController.store.bind(docmunController));
+    router_docmun.post('/ingresar_varios', docmunController.store_various.bind(docmunController));
+    router_docmun.get('/', docmunController.index.bind(docmunController));
+    router_docmun.get('/paginado', docmunController.paginado.bind(docmunController));
+    router_docmun.get('/listaxano', docmunController.listaxano.bind(docmunController));
+    router_docmun.patch('/', docmunController.update.bind(docmunController));
+    router_docmun.get('/show', docmunController.show.bind(docmunController));
+        
+    router_docmun.use('/*', (req,res)=>{
+            res.json({'message':'Recurso no encotrado'})
+      });
+
+    router.use('/resgdis',/*authMiddleware.validate ,*/router_resgdis);
+    router.use('/resoga',/*authMiddleware.validate ,*/router_resoga);

@@ -7,7 +7,7 @@ class UserController{
 
     async showdep(req,res){
         const {iduser} = req.params;
-        let result = await db["tb_user"].findOne({where:{iduser}});
+        let result = await db["tb_usuario"].findOne({where:{iduser}});
         
         if(!result){
             res.json({'message':'Sin datos a mostrar'})

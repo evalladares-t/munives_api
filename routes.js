@@ -6,7 +6,7 @@ const router = Router();
 const apiRoute = Router();
 const SeguridadRoutes = require('./modules/seguridad/routes');
 const WebRoutes = require('./modules/web/routes');
-apiRoute.use(cors()).use(bodyParser.json()).use(compression());
+apiRoute.use(cors()).use(bodyParser.urlencoded({extended: true})).use(bodyParser.json()).use(compression());
 
     apiRoute.all('*', function(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
