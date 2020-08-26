@@ -32,15 +32,15 @@ module.exports = (sequelize, DataTypes) => {
       comment : "RUTA BASE DEL TIPO DE DOCUMENTO MUNICIPAL"
     },
     abrev: {
-      type    : DataTypes.STRING,
+      type    : DataTypes.STRING(10),
       comment : "ABREVIATURA DEL TIPO DE DOCUMENTO"
     },
     nombredoc:{
-      type    : DataTypes.STRING,
+      type    : DataTypes.STRING(50),
       comment : "NOMBRE DEL TIPO DE DOCUMENTO"
     },
     siglas: {
-      type    : DataTypes.STRING,
+      type    : DataTypes.STRING(10),
       comment : "SIGLAS DEL TIPO DE DOCUMENTO"
     }
   }, {

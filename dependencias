@@ -62,3 +62,25 @@ const router_resoga = Router();
 
     router.use('/resgdis',/*authMiddleware.validate ,*/router_resgdis);
     router.use('/resoga',/*authMiddleware.validate ,*/router_resoga);
+    
+  {
+    "name":"Resolución de Gerencia de Desarrollo e Inclusión Social",
+    "rutabase":"http://localhost:3000/api/v1.0/web/transparencia/docmun/render",
+    "abrev":"resgdis",
+    "nombredoc":"Resolución de Gerencia",
+    "siglas":"GDIS/MVES"
+  }
+
+    {
+    "name":"Resoluciones de Oficina General de Administración",
+    "rutabase":"http://localhost:3000/api/v1.0/web/transparencia/docmun/render",
+    "abrev":"resoga",
+    "nombredoc":"Resolución de Administración",
+    "siglas":"OGA/MVES"
+  }
+
+{
+    "ano":2020,
+    "number":"001",
+    "idtipodocmun":1
+}

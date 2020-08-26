@@ -17,19 +17,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   tb_doc_mun.init({
-    idocmun: {
+    iddocmun: {
       type          : DataTypes.INTEGER,
       primaryKey    : true,
       autoIncrement :true,
       comment       :'IDENTIFICADOR UNICO'
     },
     number:{
-      type      : DataTypes.INTEGER,
+      type      : DataTypes.STRING(6),
       comment   : "NUMERO IDENTIFICADOR DEL RECURSO",
       allowNull : true
     },
     name: {
-      type    : DataTypes.STRING,
+      type    : DataTypes.STRING(30),
       comment : "NOMBRE IDENTIFICADOR DEL RECURSO"
     },
     descripcion: {
@@ -37,11 +37,11 @@ module.exports = (sequelize, DataTypes) => {
       comment : "DESCRIPCIÓNDEL RECURSO"
     },
     recurso: {
-      type    : DataTypes.STRING,
+      type    : DataTypes.STRING(25),
       comment : "NOMBRE DEL RECURSO"
     },
     ano: {
-      type    : DataTypes.STRING,
+      type    : DataTypes.STRING(5),
       comment : "AÑO PERTENECIENTE AL RECURSO"
     },
     idtipodocmun: {

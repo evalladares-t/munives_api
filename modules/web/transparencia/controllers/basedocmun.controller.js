@@ -1,5 +1,5 @@
 const mapper = require('automapper-js');
-const multer = require('multer');
+const fs = require('fs');
 const {DocmunDTO,TipodocmunDTO} = require('../dtos')
 const { OK,CREATED } = require('http-status-codes');
 
@@ -20,7 +20,7 @@ const { OK,CREATED } = require('http-status-codes');
             const count = result.count;
             const pagesize = Math.ceil(count/limit);
             rows = rows.map(rows => mapper(DocmunDTO,rows));
-            
+
             rows = (rows.length!=0?rows:'No se encontraron datos')
             
             return res.status(OK).json({
@@ -55,6 +55,7 @@ const { OK,CREATED } = require('http-status-codes');
             
             body.data.reverse().forEach( async result => {
                 result.ano=body.ano;
+                result.idtipodocmun=body.idtipodocmun;
                 await this._db["tb_doc_mun"].create(result);
             });
             const message = 'Se agregó '+body.data.length+ ' registros con éxito';
@@ -73,7 +74,7 @@ const { OK,CREATED } = require('http-status-codes');
             
             result.ano=result.ano+'';
             result.name = tipo_docmun.nombredoc + ' N° '+ result.number+'-'+result.ano+' '+ tipo_docmun.siglas;
-            result.resource = tipo_docmun.abrev+'.'+result.number+'-'+result.ano.slice(0,2)+'.pdf';
+            result.resource = tipo_docmun.abrev+'.'+result.number+'-'+result.ano.slice(2,4)+'.pdf';
 
             this._db["tb_docmun"].create(result);
 
@@ -85,8 +86,8 @@ const { OK,CREATED } = require('http-status-codes');
 
         async update(req,res){
             const {body} = req;
-            const {idresgdis} = req.params;
-            await this._db["tb_doc_mun"].update(idresgdis,body);
+            const {iddocmun} = req.params;
+            await this._db["tb_doc_mun"].update(iddocmun,body);
     
             return res.status(OK).json({
                 'success': true,
@@ -95,9 +96,12 @@ const { OK,CREATED } = require('http-status-codes');
         }
 
         async show(req,res){
-            const {number,ano} = req.query;
-            const result = await this._db["tb_doc_mun"].findOne({where:[{number},{ano}]});
-            const result2 = await this._db["tb_tipo_doc_mun"].findOne({where:[{number},{ano}]});
+            const {number,ano,idtipodocmun} = req.query;
+            let result = await this._db["tb_doc_mun"].findOne({
+                where:[{number},{ano},{idtipodocmun}],
+                include:[{model:this._db["tb_tipo_doc_mun"],as:"tb_tipo_doc_mun"}]
+            });
+            result = (result!=null?mapper(DocmunDTO,result.toJSON()):'No se encontraron datos') 
             return res.status(OK).json({
                 'success': true,
                 result
@@ -105,7 +109,8 @@ const { OK,CREATED } = require('http-status-codes');
         }
 
         async listaxano(req,res){
-            const {ano} = req.query;
+            let {ano} = req.query;
+            ano=parseInt(ano);
             let result = await this._db["tb_doc_mun"].findAll({where:{ano}});
             result = (result.length!=0?result:'No se encontraron registros')
             return res.status(OK).json({
@@ -113,6 +118,40 @@ const { OK,CREATED } = require('http-status-codes');
                 result
             })
         }
+
+        async render(req,res){
+            let {number,ano,idtipodocmun} = req.query;            
+            idtipodocmun = parseInt(idtipodocmun)
+
+            let result = await this._db["tb_doc_mun"].findOne({
+                where:[{number},{ano},{idtipodocmun}],
+                include:[{model:this._db["tb_tipo_doc_mun"],as:"tb_tipo_doc_mun"}]
+            });
+
+            if(result!=null){
+
+                const docmun = mapper(DocmunDTO,result.toJSON());
+                console.log(docmun)
+                var filePath = "../../../../../resources/web/transparencia/normas_emitidas/"+
+                            docmun.tb_tipo_doc_mun.abrev+"/"+docmun.ano+"/"+docmun.tb_tipo_doc_mun.abrev+'.'+docmun.number+'-'+docmun.ano.slice(2,4)+'.pdf';
+                                                    
+                fs.readFile(__dirname + filePath , function (err,data){
+                    res.contentType("application/pdf");
+                    //res.setHeader('Content-Type', 'application/pdf');
+                    //res.setHeader('Content-Disposition', 'attachment; filename='+docmun.tb_tipo_doc_mun.abrev+'.'+docmun.number+'-'+docmun.ano.slice(0,2)+'.pdf');
+                    res.send(data);
+                    console.log(err)
+                });
+            }            
+            else{
+                result = "No se encontraron datos"
+                return res.status(OK).json({
+                    'success': true,
+                    result
+                })
+            }
+        }
+
     }
 
 
