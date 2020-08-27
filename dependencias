@@ -65,18 +65,66 @@ const router_resoga = Router();
     
   {
     "name":"Resolución de Gerencia de Desarrollo e Inclusión Social",
-    "rutabase":"http://localhost:3000/api/v1.0/web/transparencia/docmun/render",
+    "rutabase":"resources/web/transparencia/normas_emitidas/resgdis",
     "abrev":"resgdis",
     "nombredoc":"Resolución de Gerencia",
     "siglas":"GDIS/MVES"
   }
-
-    {
+  {
     "name":"Resoluciones de Oficina General de Administración",
-    "rutabase":"http://localhost:3000/api/v1.0/web/transparencia/docmun/render",
+    "rutabase":"resources/web/transparencia/normas_emitidas/resoga",
     "abrev":"resoga",
     "nombredoc":"Resolución de Administración",
     "siglas":"OGA/MVES"
+  }
+  {
+    "name":"Publicaciones de OCI",
+    "rutabase":"resources/web/transparencia/normas_emitidas/puboci",
+    "abrev":"puboci",
+    "nombredoc":"DIRECTIVA Nº 006",
+    "siglas":"CG/GPROD"
+  }
+  {
+    "name":"Resoluciones de Gerencia Municipal",
+    "rutabase":"resources/web/transparencia/normas_emitidas/resgm",
+    "abrev":"resgm",
+    "nombredoc":"Resolución de Gerencia Municipal",
+    "siglas":"GM/MVES"
+  }
+  {
+    "name":"Reglamentos y Directivas (Aprobadas con R. A.)",
+    "rutabase":"resources/web/transparencia/normas_emitidas/regdir",
+    "abrev":"regdir",
+    "nombredoc":"DIRECTIVA GENERAL",
+    "siglas":"MVES"
+  }
+  {
+    "name":"Resoluciones de Alcaldia",
+    "rutabase":"resources/web/transparencia/normas_emitidas/resalc",
+    "abrev":"resalc",
+    "nombredoc":"Resolución de Alcaldía",
+    "siglas":"ALC/MVES"
+  }
+  {
+    "name":"Ordenanzas Municipales",
+    "rutabase":"resources/web/transparencia/normas_emitidas/ordmun",
+    "abrev":"ordmun",
+    "nombredoc":"Ordenanza",
+    "siglas":"MVES"
+  }
+  {
+    "name":"Decretos de Alcaldia",
+    "rutabase":"resources/web/transparencia/normas_emitidas/decalc",
+    "abrev":"decalc",
+    "nombredoc":"Decreto de Alcaldia",
+    "siglas":"DA/MVES"
+  }
+    {
+    "name":"Acuerdos de Concejo",
+    "rutabase":"resources/web/transparencia/normas_emitidas/acucon",
+    "abrev":"acucon",
+    "nombredoc":"Acuerdo de Concejo,
+    "siglas":"MVES"
   }
 
 {

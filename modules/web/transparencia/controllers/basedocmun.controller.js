@@ -1,5 +1,6 @@
 const mapper = require('automapper-js');
 const fs = require('fs');
+const path = require("path");
 const {DocmunDTO,TipodocmunDTO} = require('../dtos')
 const { OK,CREATED } = require('http-status-codes');
 
@@ -55,6 +56,9 @@ const { OK,CREATED } = require('http-status-codes');
             
             body.data.reverse().forEach( async result => {
                 result.ano=body.ano;
+                result.number=parseInt(result.number);
+                result.number=((result.number<=10)&&(result.number>0))?'00'+result.number:
+                                ((result.number>10)&&(result.number<100))?'0'+result.number:''+result.number;
                 result.idtipodocmun=body.idtipodocmun;
                 await this._db["tb_doc_mun"].create(result);
             });
@@ -120,29 +124,25 @@ const { OK,CREATED } = require('http-status-codes');
         }
 
         async render(req,res){
-            let {number,ano,idtipodocmun} = req.query;            
-            idtipodocmun = parseInt(idtipodocmun)
+            const {recurso} = req.params;
 
             let result = await this._db["tb_doc_mun"].findOne({
-                where:[{number},{ano},{idtipodocmun}],
+                where:{recurso},
                 include:[{model:this._db["tb_tipo_doc_mun"],as:"tb_tipo_doc_mun"}]
             });
 
             if(result!=null){
 
-                const docmun = mapper(DocmunDTO,result.toJSON());
-                console.log(docmun)
-                var filePath = "../../../../../resources/web/transparencia/normas_emitidas/"+
-                            docmun.tb_tipo_doc_mun.abrev+"/"+docmun.ano+"/"+docmun.tb_tipo_doc_mun.abrev+'.'+docmun.number+'-'+docmun.ano.slice(2,4)+'.pdf';
+                const docmun = mapper(DocmunDTO,result.toJSON());                
+                var filePath = docmun.tb_tipo_doc_mun.rutabase+"/"+docmun.ano+"/"+recurso;
                                                     
-                fs.readFile(__dirname + filePath , function (err,data){
-                    res.contentType("application/pdf");
-                    //res.setHeader('Content-Type', 'application/pdf');
-                    //res.setHeader('Content-Disposition', 'attachment; filename='+docmun.tb_tipo_doc_mun.abrev+'.'+docmun.number+'-'+docmun.ano.slice(0,2)+'.pdf');
+                fs.readFile(__dirname+'../../../../../' + filePath, function (err,data){
+                    res.status(OK).contentType("application/pdf");
                     res.send(data);
                     console.log(err)
                 });
-            }            
+            }    
+
             else{
                 result = "No se encontraron datos"
                 return res.status(OK).json({
