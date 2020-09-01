@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull : true
     },
     name: {
-      type    : DataTypes.STRING(30),
+      type    : DataTypes.STRING(80),
       comment : "NOMBRE IDENTIFICADOR DEL RECURSO"
     },
     descripcion: {

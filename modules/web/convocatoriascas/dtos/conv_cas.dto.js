@@ -7,6 +7,5 @@ class ConvcasDTO{
     convocatoria = null;
     eval_curricular = null;
     ano = null;
-    fe_errata=null;
 }
 module.exports = ConvcasDTO;

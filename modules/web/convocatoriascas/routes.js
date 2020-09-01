@@ -8,12 +8,12 @@ const convcasController = new ConvcasController();
 const router = Router();
 const router_convcas = Router();
 
-  //Rutas para Resgdis
-    router_convcas.post('/', resgdisController.store.bind(resgdisController));
-    router_convcas.post('/ingresar_varios', resgdisController.store_various.bind(resgdisController));
-    router_convcas.get('/', resgdisController.index.bind(resgdisController));
-    router_convcas.patch('/', resgdisController.update.bind(resgdisController));
-    router_convcas.post('/show', resgdisController.show.bind(resgdisController));
+  //Rutas para ConvCas
+    router_convcas.post('/', convcasController.store.bind(convcasController));
+    router_convcas.post('/ingresar_varios', convcasController.store_various.bind(convcasController));
+    router_convcas.get('/', convcasController.index.bind(convcasController));
+    router_convcas.patch('/', convcasController.update.bind(convcasController));
+    router_convcas.post('/show', convcasController.show.bind(convcasController));
         
     router_convcas.use('/*', (req,res)=>{
             res.json({'message':'Recurso no encotrado'})

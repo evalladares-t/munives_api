@@ -1,0 +1,135 @@
+#containerVideo {
+	width: 100%;
+	max-width: 854px;
+	min-width: 440px;
+	background: #fff;
+	margin: 0 auto;
+}
+
+/*  VIDEO PLAYER CONTAINER
+############################### */
+#containerVideo .vid-container {
+	position: relative;
+	padding-bottom: 52%;
+	padding-top: 30px; 
+	height: 0; 
+}
+
+#containerVideo .vid-container iframe,
+#containerVideo .vid-container object,
+#containerVideo .vid-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+/*  VIDEOS PLAYLIST 
+############################### */
+#containerVideo .vid-list-container {
+	width: 92%;
+	overflow: hidden;
+	margin-top: 20px;
+	margin-left:4%;
+	padding-bottom: 20px;
+}
+
+#containerVideo .vid-list {
+	width: 2000px;   /*1344px;*/
+	position: relative;
+	top:0;
+	left: 0;
+}
+
+#containerVideo .vid-item {
+	display: block;
+	width: 148px;
+	height: 180px; /*148px;*/
+	float: left;
+	margin: 0;
+	padding: 10px;
+}
+
+#containerVideo .thumb {
+	/*position: relative;*/
+	overflow:hidden;
+	height: 84px;
+}
+
+#containerVideo .thumb img {
+	width: 100%;
+	position: relative;
+	top: -13px;
+}
+
+#containerVideo .vid-item .desc {
+	color: #001E7A;
+	font-size: 13px;
+	margin-top:2px;
+}
+
+#containerVideo .vid-item:hover {
+	background: #eee;
+	cursor: pointer;
+}
+
+#containerVideo .arrows {
+	position:relative;
+	width: 100%;
+}
+
+#containerVideo .arrow-left {
+	color: #fff;
+	position: absolute;
+	background: #001E7A;
+	padding: 15px;
+	left: -25px;
+	top: -130px;
+	z-index: 99;
+	cursor: pointer;
+}
+
+#containerVideo .arrow-right {
+	color: #fff;
+	position: absolute;
+	background: #001E7A;
+	padding: 15px;
+	right: -25px;
+	top: -130px;
+	z-index:100;
+	cursor: pointer;
+}
+
+#containerVideo .arrow-left:hover {
+	background: #CC181E;
+}
+
+#containerVideo .arrow-right:hover {
+	background: #CC181E;
+}
+
+
+@media (max-width: 624px) {
+
+
+#containerVideo .vid-list-container {
+	padding-bottom: 20px;
+}
+
+/* reposition left/right arrows */
+#containerVideo .arrows {
+	position:relative;
+	margin: 0 auto;
+	width:96px;
+}
+#containerVideo .arrow-left {
+	left: 0;
+	top: -17px;
+}
+
+#containerVideo .arrow-right {
+	right: 0;
+	top: -17px;
+}

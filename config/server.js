@@ -9,7 +9,8 @@ class Server{
         this._routes = routes;
         this._express = express();
         this._express.use(require('../routes'));
-
+        this._express.set('views','./public/views');
+        this._express.set('view engine','ejs');
     }
 
     start(){

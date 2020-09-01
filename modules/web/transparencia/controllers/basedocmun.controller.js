@@ -51,6 +51,23 @@ const { OK,CREATED } = require('http-status-codes');
             })
         }
 
+        async listaxtipo(req,res){
+
+            let {ano,idtipodocmun}=req.query;            
+            const result = await this._db["tb_doc_mun"].findAndCountAll({where:[{ano},{idtipodocmun}]});
+    
+            let rows = result.rows;
+            const count = result.count;
+            rows = rows.map(rows => mapper(DocmunDTO,rows))
+            
+            rows = (rows.length!=0?rows:'No se encontraron datos')
+            
+            return res.status(OK).json({
+                count,
+                'data' : rows,
+            })
+        }
+
         store_various(req,res){
             const {body} = req;
             
@@ -152,6 +169,22 @@ const { OK,CREATED } = require('http-status-codes');
             }
         }
 
+        async layout(req,res){
+            const {idtipodocmun} = req.params;
+
+            let result = await this._db["tb_doc_mun"].findAndCountAll({
+                where:{
+                    idtipodocmun
+                }
+            });
+            result = (result.length!=0?result:'No se encontraron registros')
+            return res.status(OK).render(
+                'web_trans_gen',{text:'Hola'}
+            )
+            
+                        
+            
+        }
     }
 
 

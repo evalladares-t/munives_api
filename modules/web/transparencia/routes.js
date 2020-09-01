@@ -26,12 +26,15 @@ const router_tipodocmun = Router();
   router_docmun.post('/', docmunController.store.bind(docmunController));
   router_docmun.post('/ingresar_varios', docmunController.store_various.bind(docmunController));
   router_docmun.get('/', docmunController.index.bind(docmunController));
+  router_docmun.get('/listaxtipo', docmunController.listaxtipo.bind(docmunController));
   router_docmun.get('/paginado', docmunController.paginado.bind(docmunController));
   router_docmun.get('/render/:recurso', docmunController.render.bind(docmunController));
   router_docmun.get('/listaxano', docmunController.listaxano.bind(docmunController));
   router_docmun.patch('/:iddocmun', docmunController.update.bind(docmunController));
   router_docmun.get('/show', docmunController.show.bind(docmunController));
-      
+  router_docmun.get('/layout/:idtipodocmun', docmunController.layout.bind(docmunController));
+  
+  
   router_docmun.use('/*', (req,res)=>{
           res.json({'message':'Recurso no encotrado'})
     });
