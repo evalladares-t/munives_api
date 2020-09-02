@@ -177,13 +177,12 @@ const { OK,CREATED } = require('http-status-codes');
                     idtipodocmun
                 }
             });
+
             result = (result.length!=0?result:'No se encontraron registros')
+            //return res.sendfile(__dirname + '/public/views/web_trans_gen.pug');
             return res.status(OK).render(
-                'web_trans_gen',{text:'Hola'}
+                'web_trans_gen',{text:result}
             )
-            
-                        
-            
         }
     }
 

@@ -10,7 +10,7 @@ apiRoute.use(cors()).use(bodyParser.urlencoded({extended: true})).use(bodyParser
 
     apiRoute.all('*', function(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header("Access-Control-Allow-Headers", "Content-type,Accept,X-Access-Token,X-Key");
         res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
         res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');        
         next();
@@ -32,8 +32,8 @@ apiRoute.use(cors()).use(bodyParser.urlencoded({extended: true})).use(bodyParser
     });
 
     router.use('/api/v1.0', apiRoute);
-    router.use('/*', (req, res) => {
+    /*router.use('/*', (req, res) => {
         res.json({ 'message': 'Recurso no encotrado' })
-    });
+    });*/
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = require('../routes');
 const config = require('./environments');
+const path = require("path");
 
 class Server{
 
@@ -9,8 +10,10 @@ class Server{
         this._routes = routes;
         this._express = express();
         this._express.use(require('../routes'));
-        this._express.set('views','./public/views');
-        this._express.set('view engine','ejs');
+        this._express.use(express.static('public'));
+        this._express.set('view engine','pug');        
+        this._express.set('views', path.join(__dirname, '../views'));
+
     }
 
     start(){
