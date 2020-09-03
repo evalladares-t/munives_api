@@ -1,0 +1,126 @@
+head
+  // Basic
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  title Municipalidad de Distrital de Villa el Salvador
+  meta(name='keywords' content='MUNICIPALIDAD, VILLA EL SALVADOR')
+  meta(name='description' content='Municipalidad Distrital de Villa el Salvador')
+  meta(name='author' content='munives.gob.pe')
+
+  // Mobile Metas
+  meta(name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no')
+  // Web Fonts
+  link(href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light%7CPlayfair+Display:400' rel='stylesheet' type='text/css')
+  // Vendor CSS
+  //link(rel="stylesheet", href='/vendor/boostrap/css/bootstrap.min.css')
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z' crossorigin='anonymous')
+  link(rel='stylesheet', href='/vendor/fontawesome-free/css/all.min.css')
+  link(rel='stylesheet', href='/vendor/simple-line-icons/css/simple-line-icons.min.css')
+  // Theme CSS
+  link(rel='stylesheet', href='/css/theme.css')
+  link(rel='stylesheet', href='/css/theme-elements.css')
+  // Theme Custom CSS
+  link(rel='stylesheet' type='text/css' href='https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.css')
+.body
+    .main(role='main')
+        .text-center
+            .container.py-2
+                .row.mt-3
+                    .col
+                        .row
+                            .col-lg-4
+                                .tabs.tabs-vertical.tabs-right.tabs-navigation.tabs-navigation-simple
+                                    ul.nav.nav-tabs.col-sm-3
+                                        li.nav-item.active
+                                            a.nav-link(href='#tabsconvcas2020' data-toggle='tab') Convocatoria CAS - 2020
+                                        li.nav-item
+                                            a.nav-link(href='#tabsconvcas2019' data-toggle='tab') Convocatoria CAS - 2019
+                                        li.nav-item
+                                            a.nav-link(href='#tabsconvcas2018' data-toggle='tab') Convocatoria CAS - 2018
+                                        li.nav-item
+                                            a.nav-link(href='#tabsconvcas2017' data-toggle='tab') Convocatoria CAS - 2017
+                                        li.nav-item
+                                            a.nav-link(href='#tabsconvcas2016' data-toggle='tab') Convocatoria CAS - 2016
+                                        li.nav-item
+                                            a.nav-link(href='#tabsconvcas2015' data-toggle='tab') Convocatoria CAS - 2015
+                                        li.nav-item
+                                            a.nav-link(href='#tabsconvcas2014' data-toggle='tab') Convocatoria CAS - 2014
+                                        li.nav-item
+                                            a.nav-link(href='#tabsconvcas2013' data-toggle='tab') Convocatoria CAS - 2013
+                                        li.nav-item
+                                            a.nav-link(href='#tabsconvcas2012' data-toggle='tab') Convocatoria CAS - 2012
+                            .col-lg-8
+                                #tabsconvcas2020.tab-pane.tab-pane-navigation.active.mt-4
+                                    .row
+                                        h4(style='text-align:justify; margin-right:5%;') CONVOCATORIA CAS - 2020
+                                    table(style='margin-top:5%;' id='table2020')                        
+                                        thead
+                                            tr
+                                                th
+                                                    | Nombre
+                                                th
+                                                    | Convocatoria
+                                                th
+                                                    | Fe de errata
+                                                th
+                                                    | Comunicado
+                                                th
+                                                    | Evaluación curricular
+                                                th
+                                                    | Resultado
+                                        tbody
+                                            each registro in result
+                                                if(registro.ano =='2020' && registro!=null)
+                                                    tr
+                                                        td #{registro.name}
+                                                        if(registro.convocatoria!=null)
+                                                            td(style='text-align:center;')
+                                                                a(href='http://localhost:3000/api/v1.0/web/convcas/cas/render/'+registro.convocatoria, target='_blank')
+                                                                    i.icon-doc.icons
+                                                        else
+                                                            td(style='text-align:center;') -
+                                                        if(registro.tb_fe_errata.length!=0)
+                                                            td(style='text-align:center;')
+                                                                each fe_errata in registro.tb_fe_errata
+                                                                    a(href='http://localhost:3000/api/v1.0/web/convcas/cas/render/'+fe_errata.recurso, target='_blank')
+                                                                        i.icon-doc.icons
+                                                        else
+                                                            td(style='text-align:center;') -
+                                                        if(registro.comunicado!=null)
+                                                            td(style='text-align:center;')
+                                                                a(href='http://localhost:3000/api/v1.0/web/convcas/cas/render/'+registro.comunicado, target='_blank')
+                                                                    i.icon-doc.icons
+                                                        else
+                                                            td(style='text-align:center;') -
+                                                        if(registro.eval_curricular!=null)
+                                                            td(style='text-align:center;')
+                                                                a(href='http://localhost:3000/api/v1.0/web/convcas/cas/render/'+registro.eval_curricular, target='_blank')
+                                                                    i.icon-doc.icons
+                                                        else
+                                                            td(style='text-align:center;') -
+                                                        if(registro.resultado!=null)
+                                                            td(style='text-align:center;')
+                                                                a(href='http://localhost:3000/api/v1.0/web/transparencia/docmun/render/'+registro.recurso, target='_blank')
+                                                                    i.icon-doc.icons
+                                                        else
+                                                            td(style='text-align:center;') -
+                                #tabsconvcas2017.tab-pane.tab-pane-navigation.active.mt-4
+                                    .row
+                                        h4(style='text-align:center; margin-right:5%;') CONVOCATORIA CAS - 2017                                            
+                                    .col-lg-8(style='margin-left:18%; margin-top:4%;')
+                                        include web_convcas_sbd
+// Vendor
+script(src='/vendor/jquery/jquery.min.js')
+script(src='/vendor/bootstrap/js/bootstrap.min.js')
+script(type='text/javascript' src='https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js')
+script(type='text/javascript' src='https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js')
+each val in ['2020', '2019', '2018','2017','2016','2015','2014','2013']
+  script.
+    $(document).ready( function () {
+    $('#table#{val}').DataTable({
+    "language": {
+    "sOrder": [[ 0, "desc" ]],
+    "sUrl":"https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+    }
+    });
+    } );

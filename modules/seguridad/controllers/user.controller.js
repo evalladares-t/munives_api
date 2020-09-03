@@ -17,9 +17,10 @@ class UserController{
             return res.json({
                 usuario
             })
-        }    
-        
+        }            
     }
+
+    
 }
 
 module.exports = UserController;

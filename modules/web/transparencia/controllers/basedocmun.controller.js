@@ -2,7 +2,7 @@ const mapper = require('automapper-js');
 const fs = require('fs');
 const path = require("path");
 const {DocmunDTO,TipodocmunDTO} = require('../dtos')
-const { OK,CREATED } = require('http-status-codes');
+const { OK,CREATED, NOT_FOUND } = require('http-status-codes');
 
     class basedocmunController{
 
@@ -70,12 +70,12 @@ const { OK,CREATED } = require('http-status-codes');
 
         store_various(req,res){
             const {body} = req;
-            
+            console.log(body)
             body.data.reverse().forEach( async result => {
                 result.ano=body.ano;
                 result.number=parseInt(result.number);
-                result.number=((result.number<=10)&&(result.number>0))?'00'+result.number:
-                                ((result.number>10)&&(result.number<100))?'0'+result.number:''+result.number;
+                result.number=((result.number<10)&&(result.number>0))?'00'+result.number:
+                                ((result.number>=10)&&(result.number<100))?'0'+result.number:''+result.number;
                 result.idtipodocmun=body.idtipodocmun;
                 await this._db["tb_doc_mun"].create(result);
             });
@@ -172,16 +172,53 @@ const { OK,CREATED } = require('http-status-codes');
         async layout(req,res){
             const {idtipodocmun} = req.params;
 
-            let result = await this._db["tb_doc_mun"].findAndCountAll({
+            let result = await this._db["tb_doc_mun"].findAll({
                 where:{
                     idtipodocmun
-                }
+                },                
             });
 
+            let result_type = await this._db["tb_tipo_doc_mun"].findAll({
+                where:{
+                    idtipodocmun
+                },                
+            }); 
+            result_type=result_type[0];
+
+            result = (result.length!=0?result:null)
+            
+            if(result!=null){
+                return res.status(OK).render(
+                    'web_trans_gen',{result,result_type}
+                )
+            }
+            else{
+                return res.status(NOT_FOUND).json({
+                    'success': false,
+                    'message':'Sin datos encontrados'
+                })
+            }
+        }
+
+        async prop(req,res){
+            const {idtipodocmun} = req.params;
+
+            let result = await this._db["tb_doc_mun"].findAll({
+                where:{
+                    idtipodocmun
+                },                
+            });
+            let result_type = await this._db["tb_tipo_doc_mun"].findAll({
+                where:{
+                    idtipodocmun
+                },                
+            }); 
+
+            //console.log(result_type)
             result = (result.length!=0?result:'No se encontraron registros')
             //return res.sendfile(__dirname + '/public/views/web_trans_gen.pug');
-            return res.status(OK).render(
-                'web_trans_gen',{text:result}
+            return res.status(OK).json(
+                result_type
             )
         }
     }

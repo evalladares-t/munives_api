@@ -20,7 +20,7 @@ class AuthMiddleware{
         try {
           const bearerToken = token.split(" ");
           const bearer = jwt.verify(bearerToken[1], process.env.JWT_SECRET);
-          let result = await db["tb_user"].findOne({where:{iduser:bearer}});
+          let result = await db["tb_usuario"].findOne({where:{idusuario:bearer}});
           
           result = mapper(UserDTO,result.dataValues);
           next();

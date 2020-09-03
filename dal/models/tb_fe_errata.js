@@ -22,17 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey    : true,
       autoIncrement :true,
       comment       :'IDENTIFICADOR UNICO'
-    },
-    number: {
-      type      : DataTypes.STRING(80),
-      comment   : "NUMERO DE LA CONVOCATORIA CAS",
-      allowNull : true
-    },
-    ano: {
-      type      : DataTypes.STRING(80),
-      comment   : "ANO DE LA CONVOCATORIA CAS",
-      allowNull : true
-    },
+    },    
     idconvcas: {
       type      : DataTypes.INTEGER,
       comment   : "IDENTIFICADOR DE LA CONVOCATORIA CAS",

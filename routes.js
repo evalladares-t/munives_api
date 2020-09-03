@@ -6,11 +6,11 @@ const router = Router();
 const apiRoute = Router();
 const SeguridadRoutes = require('./modules/seguridad/routes');
 const WebRoutes = require('./modules/web/routes');
-apiRoute.use(cors()).use(bodyParser.urlencoded({extended: true})).use(bodyParser.json()).use(compression());
+apiRoute.use(cors()).use(bodyParser.urlencoded({limit: '50mb',extended: true})).use(bodyParser.json({limit: '50mb'})).use(compression());
 
     apiRoute.all('*', function(req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Content-type,Accept,X-Access-Token,X-Key");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
         res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');        
         next();

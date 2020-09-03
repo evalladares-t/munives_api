@@ -21,6 +21,7 @@ class AuthController{
         let result = await db["tb_usuario"].findOne({where:{name_user}});
         if(result!=null){
             const usuario = mapper(UserDTO,result.dataValues);
+            console.log(usuario)
             if(usuario.pass!=pass){
                 res.status(UNAUTHORIZED).json({
                     'success': false,
@@ -28,9 +29,9 @@ class AuthController{
                 })
             }
             else{
-                var token = jwt.sign( usuario.iduser, process.env.JWT_SECRET,{expiresIn:"4h"});
+                var token = jwt.sign( usuario.idusuario, process.env.JWT_SECRET);
                 const emit = {"token":token}
-                await db["tb_usuario"].update(emit,{ where: { iduser:usuario.iduser }});
+                await db["tb_usuario"].update(emit,{ where: { idusuario:usuario.idusuario }});
                 res.status(OK).json({
                     'success': true,
                     'message': 'Usuario correcto',

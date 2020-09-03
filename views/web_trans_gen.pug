@@ -36,34 +36,199 @@ head
     .container.py-2
       .row.mt-5
         .col
-          h4.mb-4 #{text.count}
+          h4.mb-4 Contenido
           .row
             .col-lg-3
               .tabs.tabs-vertical.tabs-right.tabs-navigation.tabs-navigation-simple
                 ul.nav.nav-tabs.col-sm-3
                   li.nav-item.active
-                    a.nav-link(href='#resgdis2020' data-toggle='tab') RESOLUCIONES GDIS 2020
+                    a.nav-link(href='#data2020', data-toggle='tab') #{result_type.name} 2020
                   li.nav-item
-                    a.nav-link(href='#resgdis2019' data-toggle='tab') RESOLUCIONES GDIS 2019
+                    a.nav-link(href='#data2019', data-toggle='tab') #{result_type.name} 2019
                   li.nav-item
-                    a.nav-link(href='#resgdis2018' data-toggle='tab') RESOLUCIONES GDIS 2018
+                    a.nav-link(href='#data2018', data-toggle='tab') #{result_type.name} 2018
                   li.nav-item
-                    a.nav-link(href='#resgdis2017' data-toggle='tab') RESOLUCIONES GDIS 2017
+                    a.nav-link(href='#data2017', data-toggle='tab') #{result_type.name} 2017
                   li.nav-item
-                    a.nav-link(href='#resgdis2016' data-toggle='tab') RESOLUCIONES GDIS 2016
+                    a.nav-link(href='#data2016', data-toggle='tab') #{result_type.name} 2016
                   li.nav-item
-                    a.nav-link(href='#resgdis2015' data-toggle='tab') RESOLUCIONES GDIS 2015
+                    a.nav-link(href='#data2015', data-toggle='tab') #{result_type.name} 2015
                   li.nav-item
-                    a.nav-link(href='#resgdis2014' data-toggle='tab') RESOLUCIONES GDIS 2014
+                    a.nav-link(href='#data2014', data-toggle='tab') #{result_type.name} 2014
             .col-lg-9
-              #resgdis2020.tab-pane.tab-pane-navigation.active
-              #resgdis2019.tab-pane.tab-pane-navigation
-              #resgdis2018.tab-pane.tab-pane-navigation
-              #resgdis2017.tab-pane.tab-pane-navigation
-              #resgdis2016.tab-pane.tab-pane-navigation
-              #resgdis2014.tab-pane.tab-pane-navigation
+              #data2020.tab-pane.tab-pane-navigation.active
+                h4(style='text-align:justify; margin-right:5%;') #{result_type.name} - 2020
+                table(id='table2020' style='font-size:14px')
+                  thead
+                    tr
+                      th
+                        | Resolución
+                      th
+                        | Descripción
+                      th
+                        | Descargar
+                  tbody
+                    each registro in result
+                      if(registro.ano =='2020' && registro!=null)
+                          tr
+                            td #{registro.name}
+                            td(style='text-align:justify;') #{registro.descripcion}
+                            if(registro.descripcion!='-')
+                              td(style='text-align:center;')
+                                a(href='http://localhost:3000/api/v1.0/web/transparencia/docmun/render/'+registro.recurso, target='_blank')
+                                  i.icon-doc.icons
+                            else
+                              td(style='text-align:center;') -
+              #data2019.tab-pane.tab-pane-navigation
+                h4(style='text-align:justify; margin-right:5%;') #{result_type.name} - 2019
+                table(id='table2019' style='font-size:14px')
+                  thead
+                    tr
+                      th
+                        | Resolución
+                      th
+                        | Descripción
+                      th
+                        | Descargar
+                  tbody
+                    each registro in result
+                      if(registro.ano =='2019' && registro!=null)
+                          tr
+                            td #{registro.name}
+                            td(style='text-align:justify;') #{registro.descripcion}
+                            if(registro.descripcion!='-')
+                              td(style='text-align:center;')
+                                a(href='http://localhost:3000/api/v1.0/web/transparencia/docmun/render/'+registro.recurso, target='_blank')
+                                  i.icon-doc.icons
+                            else
+                              td(style='text-align:center;') -
+              #data2018.tab-pane.tab-pane-navigation
+                h4(style='text-align:justify; margin-right:5%;') #{result_type.name} - 2018
+                table(id='table2018' style='font-size:14px')
+                  thead
+                    tr
+                      th
+                        | Resolución
+                      th
+                        | Descripción
+                      th
+                        | Descargar
+                  tbody
+                    each registro in result
+                      if(registro.ano =='2018' && registro!=null)
+                          tr
+                            td #{registro.name}
+                            td(style='text-align:justify;') #{registro.descripcion}
+                            if(registro.descripcion!='-')
+                              td(style='text-align:center;')
+                                a(href='http://localhost:3000/api/v1.0/web/transparencia/docmun/render/'+registro.recurso, target='_blank')
+                                  i.icon-doc.icons
+                            else
+                              td(style='text-align:center;') -
+              #data2017.tab-pane.tab-pane-navigation
+                h4(style='text-align:justify; margin-right:5%;') #{result_type.name} - 2017
+                table(id='table2017' style='font-size:14px')
+                  thead
+                    tr
+                      th
+                        | Resolución
+                      th
+                        | Descripción
+                      th
+                        | Descargar
+                  tbody
+                    each registro in result
+                      if(registro.ano =='2017' && registro!=null)
+                          tr
+                            td #{registro.name}
+                            td(style='text-align:justify;') #{registro.descripcion}
+                            if(registro.descripcion!='-')
+                              td(style='text-align:center;')
+                                a(href='http://localhost:3000/api/v1.0/web/transparencia/docmun/render/'+registro.recurso, target='_blank')
+                                  i.icon-doc.icons
+                            else
+                              td(style='text-align:center;') -
+              #data2016.tab-pane.tab-pane-navigation
+                h4(style='text-align:justify; margin-right:5%;') #{result_type.name} - 2016
+                table(id='table2016' style='font-size:14px')
+                  thead
+                    tr
+                      th
+                        | Resolución
+                      th
+                        | Descripción
+                      th
+                        | Descargar
+                  tbody
+                    each registro in result
+                      if(registro.ano =='2016' && registro!=null)
+                          tr
+                            td #{registro.name}
+                            td(style='text-align:justify;') #{registro.descripcion}
+                            if(registro.descripcion!='-')
+                              td(style='text-align:center;')
+                                a(href='http://localhost:3000/api/v1.0/web/transparencia/docmun/render/'+registro.recurso, target='_blank')
+                                  i.icon-doc.icons
+                            else
+                              td(style='text-align:center;') -
+              #data2015.tab-pane.tab-pane-navigation
+                h4(style='text-align:justify; margin-right:5%;') #{result_type.name} - 2015
+                table(id='table2015' style='font-size:14px')
+                  thead
+                    tr
+                      th
+                        | Resolución
+                      th
+                        | Descripción
+                      th
+                        | Descargar
+                  tbody
+                    each registro in result
+                      if(registro.ano =='2015' && registro!=null)
+                          tr
+                            td #{registro.name}
+                            td(style='text-align:justify;') #{registro.descripcion}
+                            if(registro.descripcion!='-')
+                              td(style='text-align:center;')
+                                a(href='http://localhost:3000/api/v1.0/web/transparencia/docmun/render/'+registro.recurso, target='_blank')
+                                  i.icon-doc.icons
+                            else
+                              td(style='text-align:center;') -
+              #data2014.tab-pane.tab-pane-navigation
+                h4(style='text-align:justify; margin-right:5%;') #{result_type.name} - 2014
+                table(id='table2014' style='font-size:14px')
+                  thead
+                    tr
+                      th
+                        | Resolución
+                      th
+                        | Descripción
+                      th
+                        | Descargar
+                  tbody
+                    each registro in result
+                      if(registro.ano =='2014' && registro!=null)
+                          tr
+                            td #{registro.name}
+                            td(style='text-align:justify;') #{registro.descripcion}
+                            if(registro.descripcion!='-')
+                              td(style='text-align:center;')
+                                a(href='http://localhost:3000/api/v1.0/web/transparencia/docmun/render/'+registro.recurso, target='_blank')
+                                  i.icon-doc.icons
+                            else
+                              td(style='text-align:center;') -
 // Vendor
 script(src='/vendor/jquery/jquery.min.js')
 script(src='/vendor/bootstrap/js/bootstrap.min.js')
 script(type='text/javascript' src='https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js')
 script(type='text/javascript' src='https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js')
+each val in ['2020', '2019', '2018','2017','2016','2015','2014','2013']
+  script.
+    $(document).ready( function () {
+    $('#table#{val}').DataTable({
+    "language": {
+    "sOrder": [[ 0, "desc" ]],
+    "sUrl":"https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+    }
+    });
+    } );

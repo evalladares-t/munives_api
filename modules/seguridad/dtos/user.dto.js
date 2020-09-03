@@ -1,6 +1,6 @@
   
 class UserDto{
-    iduser = 0;
+    idusuario = 0;
     name = null;
     last_name = null;
     dni = null;
